@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <simpleComputation id="{all}">
+        <mapComputationDuration randomMin="0.5" randomMax="2">6000ms</mapComputationDuration>
+        <shuffleDuration randomMin="0.5" randomMax="2">4000ms</shuffleDuration>
+        <reduceComputationDuration randomMin="0.5" randomMax="2">2000ms</reduceComputationDuration>
+        <master>
+            <assignTaskToMachineInternalDelay>1ms</assignTaskToMachineInternalDelay>
+            <assignTaskToMachineNetworkDelay>1ms</assignTaskToMachineNetworkDelay>
+            <hardDriveDelay>1ms</hardDriveDelay>
+            <assignFunctionDelay>1ms</assignFunctionDelay>
+            <setupMachineDelay>3ms</setupMachineDelay>
+        </master>
+    </simpleComputation>
+</simulation>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <cluster>
+        <machines>1800</machines>
+        <maxSingleDiskSize>512GB</maxSingleDiskSize>
+        <dfs>
+            <blockSize>64kb</blockSize>
+        </dfs>
+    </cluster>
+</simulation>

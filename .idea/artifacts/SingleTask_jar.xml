@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SingleTask:jar">
+    <output-path>$PROJECT_DIR$/examplebinaries</output-path>
+    <root id="archive" name="SingleTask.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/examples/com/melzner/mapreduce/examples/singletask/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="MapReduceSimulator" />
+      <element id="module-test-output" name="MapReduceSimulator" />
+    </root>
+  </artifact>
+</component>

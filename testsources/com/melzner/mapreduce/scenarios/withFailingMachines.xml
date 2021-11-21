@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation extends="simpleTest">
+    <cluster>
+        <machineFailProbability>0.005</machineFailProbability>
+    </cluster>
+</simulation>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation extends="multipleComputations3Computations">
+    <simpleComputation id="computation4">
+        <master>
+            <inputSplitSize>15000</inputSplitSize>
+            <outputSplitSize>4000</outputSplitSize>
+        </master>
+    </simpleComputation>
+    <simpleComputation id="computation5">
+        <master>
+            <inputSplitSize>15000</inputSplitSize>
+            <outputSplitSize>4000</outputSplitSize>
+        </master>
+    </simpleComputation>
+</simulation>

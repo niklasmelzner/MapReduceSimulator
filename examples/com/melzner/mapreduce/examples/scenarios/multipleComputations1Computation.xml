@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation extends="clusterBase;computationBase">
+    <cluster>
+        <machineFailProbability>0.007</machineFailProbability>
+        <stragglerProbability>0.005</stragglerProbability>
+        <stragglingFactor randomMin="0.5" randomMax="1.5">10</stragglingFactor>
+        <compensateStragglerThreshold>10</compensateStragglerThreshold>
+    </cluster>
+    <simpleComputation id="computation1">
+        <master>
+            <inputSplitSize>15000</inputSplitSize>
+            <outputSplitSize>4000</outputSplitSize>
+        </master>
+    </simpleComputation>
+</simulation>
