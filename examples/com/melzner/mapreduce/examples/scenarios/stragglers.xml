@@ -2,8 +2,8 @@
 <simulation extends="clusterBase;computationBase">
     <cluster>
         <machineFailProbability>0.007</machineFailProbability>
-        <stragglerProbability>0.005</stragglerProbability>
-        <stragglingFactor randomMin="0.5" randomMax="1.5">10</stragglingFactor>
+        <stragglerProbability>0.01</stragglerProbability>
+        <stragglingFactor randomMin="0.5" randomMax="1.5">40</stragglingFactor>
     </cluster>
     <simpleComputation id="{all}">
         <shuffleDuration>0</shuffleDuration>

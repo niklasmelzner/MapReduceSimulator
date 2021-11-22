@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 public class GraphVisualizer {
 
-    private static final int BORDER = 30;
+    private static final int BORDER = 30, BORDER_TOP_RIGHT = 10;
     private static final float GRAPH_STROKE_WIDTH = 1.5f;
     private static final float COORDINATE_SYSTEM_STROKE_WIDTH = 1.5f;
     private static final float COORDINATE_SYSTEM_GRID_STROKE_WIDTH = 0.5f;
@@ -50,9 +50,9 @@ public class GraphVisualizer {
         gr2D.setFont(new Font(font.getFamily(), Font.PLAIN, 13));
         drawGraphs(gr2D, new Rectangle(
                 BORDER,
-                BORDER + COORDINATE_SYSTEM_ADDITIONAL_LENGTH,
-                width - BORDER * 2 - COORDINATE_SYSTEM_ADDITIONAL_LENGTH,
-                height - BORDER * 2 - COORDINATE_SYSTEM_ADDITIONAL_LENGTH));
+                BORDER_TOP_RIGHT + COORDINATE_SYSTEM_ADDITIONAL_LENGTH,
+                width - BORDER - BORDER_TOP_RIGHT - COORDINATE_SYSTEM_ADDITIONAL_LENGTH,
+                height - BORDER - BORDER_TOP_RIGHT - COORDINATE_SYSTEM_ADDITIONAL_LENGTH));
     }
 
     public void setYAxisUnitTransformation(Function<Double, Double> yAxisUnitTransformation) {
@@ -66,6 +66,8 @@ public class GraphVisualizer {
 
     @SuppressWarnings("UnnecessaryLocalVariable")
     private void drawGraphs(Graphics2D gr2D, Rectangle rect) {
+        int xLabelWidth = gr2D.getFontMetrics().stringWidth(xLabel);
+        rect.width -= xLabelWidth;
         int yLabelWidth = gr2D.getFontMetrics().stringWidth(yLabel);
         rect.y += yLabelWidth;
         rect.height -= yLabelWidth;
@@ -244,7 +246,7 @@ public class GraphVisualizer {
 
         int stringWidth = gr2D.getFontMetrics().stringWidth(axisLabel);
 
-        gr2D.drawString(axisLabel, invertX ? - stringWidth - COORDINATE_SYSTEM_ADDITIONAL_LENGTH : length - stringWidth / 2
+        gr2D.drawString(axisLabel, invertX ? - stringWidth - COORDINATE_SYSTEM_ADDITIONAL_LENGTH : length
                 + COORDINATE_SYSTEM_ADDITIONAL_LENGTH, stringHeight + 3);
 
     }

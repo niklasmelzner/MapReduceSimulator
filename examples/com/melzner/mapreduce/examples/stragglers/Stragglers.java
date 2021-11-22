@@ -17,8 +17,7 @@ public class Stragglers extends TestComputationSimulation {
 
     public static void main(String[] args) throws IOException, SAXException {
         simulate("Stragglers", ScenarioConfig.load(Stragglers.class, SCENARIOS_PATH + "/stragglers.xml"), new StragglerExecutionModification());
-        simulate("Straggler Compensation", ScenarioConfig.load(Stragglers.class, SCENARIOS_PATH + "/compensateStragglers.xml"),
-                new StragglerExecutionModification());
+        simulate("Straggler Compensation", ScenarioConfig.load(Stragglers.class, SCENARIOS_PATH + "/compensateStragglers.xml"), new StragglerExecutionModification());
     }
 
     public static class StragglerExecutionModification extends ExecutionModification {

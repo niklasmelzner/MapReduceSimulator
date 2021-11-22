@@ -77,11 +77,18 @@ public class Graph {
     }
 
     public double calculateArea() {
+        return calculateArea(xMin - 1, xMax + 1);
+    }
+
+    public double calculateArea(double min, double max) {
+
         double area = 0;
         for (int i = 0; i < points.length - 1; i++) {
             double[] p = points[i];
             double[] p1 = points[i + 1];
-            area += p1[1] * (p1[0] - p[0]);
+            if (p[0]>=min && p1[0]<max){
+                area += p1[1] * (p1[0] - p[0]);
+            }
         }
         return area;
     }

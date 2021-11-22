@@ -1,6 +1,7 @@
 package com.melzner.mapreduce.examples;
 
 import com.melzner.mapreduce.cluster.Machine;
+import com.melzner.mapreduce.computation.SimpleComputation;
 import com.melzner.mapreduce.computation.SimpleComputation.MapTaskState;
 import com.melzner.mapreduce.scenario.Scenario;
 import com.melzner.mapreduce.scenario.ScenarioConfig;
@@ -75,16 +76,30 @@ public abstract class TestComputationSimulation {
                 .show();
         Graph runningMachines = Graph.create(record.get(Machine.RecordType.RUNNING_MACHINES), transformation);
 
-        System.out.println("Computation duration: " + TimeUnit.NANOSECONDS.toMillis(result.getDuration()) / 1000.0 + " s");
-        System.out.println("Integrated RunningMachines graph: " + TimeUnit.NANOSECONDS.toSeconds((long) runningMachines.calculateArea()) + " machines*s");
-
         GraphVisualizer runningMachinesVisualizer = Simulation.newVisualizer(name + ": Running Machines")
                 .addVerticalLine(timestampFinished, Color.GRAY)
+                .setYLabel("busy")
                 .addGraph(Graph.create(record.get(Machine.RecordType.ACTIVE_MACHINES), transformation), Color.RED)
                 .addGraph(runningMachines, Color.BLACK);
 
         modification.modifyRunningMachinesVisualizer(runningMachinesVisualizer, result);
         runningMachinesVisualizer.show();
+
+        long tMappingDone = (long) record.get(SimpleComputation.RecordType.MAPPING_DONE).get(0).getTimestamp();
+        long tShuffleDone = (long) record.get(SimpleComputation.RecordType.SHUFFLE_DONE).get(0).getTimestamp();
+
+        System.out.println("Computation duration: " + TimeUnit.NANOSECONDS.toMillis(result.getDuration()) / 1000.0 + " s");
+        System.out.println("Integrated RunningMachines graph: " + TimeUnit.NANOSECONDS.toSeconds((long) runningMachines.calculateArea()) + " machines*s");
+        System.out.println("Integrated RunningMachines graph [Map]: " + TimeUnit.NANOSECONDS.toSeconds((long) runningMachines.calculateArea(0, tMappingDone)) + " machines*s");
+        System.out.println("Integrated RunningMachines graph [Recude]: " + TimeUnit.NANOSECONDS.toSeconds((long) runningMachines.calculateArea(tShuffleDone, result.getDuration())) + " machines*s");
+
+        System.out.println("Mapping Phase took " + TimeUnit.NANOSECONDS.toMillis(tMappingDone) / 1000.0 + " s");
+        System.out.println("Shuffle Phase took " + TimeUnit.NANOSECONDS.toMillis(tShuffleDone - tMappingDone) / 1000.0 + " s");
+
+
+        List<RecordHistoryEntry> activeMachines = record.get(Machine.RecordType.ACTIVE_MACHINES);
+        System.out.println("Machines at end of simulation: " + activeMachines.get(activeMachines.size() - 1).getValue());
+
     }
 
     protected static class ExecutionModification {

@@ -12,6 +12,7 @@ import com.melzner.mapreduce.simulation.ValueSimulationEvent;
 import com.melzner.xmlutil.XMLValue;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class SimpleComputation extends Simulatable<SimpleComputation.EventType> {
 
@@ -54,6 +55,7 @@ public class SimpleComputation extends Simulatable<SimpleComputation.EventType> 
             if (event.getType() == EventType.SHUFFLE_DONE) {
                 taskExecutor = reduceTaskExecutor;
                 shuffleActive = false;
+                updateRecordValue(RecordType.SHUFFLE_DONE,i->getTimeStamp(),0L);
                 invokeEvent(0, new SimulationEvent<>(EventType.INVOKE_TASKS));
             }
         }
@@ -65,6 +67,7 @@ public class SimpleComputation extends Simulatable<SimpleComputation.EventType> 
                 if (mapTasksExecutor.tasks.getTasks(MapTaskState.DONE).size() ==
                         mapTasksExecutor.tasks.size() && taskExecutor == mapTasksExecutor) {
                     shuffleActive = true;
+                    updateRecordValue(RecordType.MAPPING_DONE, i->getTimeStamp(),0L);
                     invokeEvent(config.shuffleDuration.get(), new SimulationEvent<>(EventType.SHUFFLE_DONE));
                     break;
                 }
@@ -242,7 +245,7 @@ public class SimpleComputation extends Simulatable<SimpleComputation.EventType> 
             Integer[] idleTasks = tasks.getTasks(MapTaskState.IDLE).toArray(new Integer[0]);
             int i = 0;
             for (Integer idleTask : idleTasks) {
-                if (startTask(idleTask) && ++ i == config.inputSplitSize.get() / 5000) return;
+                if (startTask(idleTask) && ++ i == config.inputSplitSize.get() / 3000) return;
             }
         }
 
@@ -327,6 +330,10 @@ public class SimpleComputation extends Simulatable<SimpleComputation.EventType> 
 
     public enum ReduceTaskState {
         IDLE, PREPARED, RUNNING, DONE
+    }
+
+    public enum RecordType{
+        MAPPING_DONE, SHUFFLE_DONE
     }
 
 }

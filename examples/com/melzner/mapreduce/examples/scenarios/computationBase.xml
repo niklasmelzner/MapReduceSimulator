@@ -2,7 +2,7 @@
 <simulation>
     <simpleComputation id="{all}">
         <mapComputationDuration randomMin="0.5" randomMax="2">6000ms</mapComputationDuration>
-        <shuffleDuration randomMin="0.5" randomMax="2">4000ms</shuffleDuration>
+        <shuffleDuration randomMin="0.5" randomMax="2">6000ms</shuffleDuration>
         <reduceComputationDuration randomMin="0.5" randomMax="2">2000ms</reduceComputationDuration>
         <master>
             <assignTaskToMachineInternalDelay>1ms</assignTaskToMachineInternalDelay>
