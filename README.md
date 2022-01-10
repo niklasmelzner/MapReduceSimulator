@@ -3,3 +3,4 @@ Based on an internal event based framework to simulate parallel processes in a s
 Binary examples should be executed via a terminal instance to get more information about stats like simulation duration.
 
 Comments will be added soon :)
+Or maybe a bit later, sorry ;)
